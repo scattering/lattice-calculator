@@ -45,10 +45,11 @@ dev = [
 ]
 
 [tool.setuptools]
-packages = ["icp_lattice_calculator"]
+packages = ["lattice_calculator"]
+package_dir = {"" = "src"}
 
 [tool.setuptools.package-data]
-icp_lattice_calculator = ["py.typed"]
+lattice_calculator = ["py.typed"]
 
 [tool.black]
 line-length = 100
