@@ -44,12 +44,15 @@ dev = [
     "flake8>=3.9.2",
 ]
 
-[tool.setuptools]
-packages = ["lattice_calculator"]
-package_dir = {"" = "src"}
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["lattice_calculator*"]
 
 [tool.setuptools.package-data]
 lattice_calculator = ["py.typed"]
+
+[tool.setuptools]
+include-package-data = true
 
 [tool.black]
 line-length = 100
