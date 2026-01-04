@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "icp-lattice-calculator"
-version = "0.1.0"
+version = "0.1.1"
 description = "Crystallographic lattice calculations and instrument angle transformations"
 readme = "README.md"
 authors = [
