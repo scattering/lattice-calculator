@@ -135,9 +135,15 @@ class Lattice(object):
           self.V = self.a*self.b*self.c*N.sqrt(sqrt_arg)
           self.V = N.where(self.V < eps, eps, self.V) 
           self.astar=(2*N.pi)*self.b*self.c*sin_a/self.V; self.bstar=(2*N.pi)*self.a*self.c*sin_b/self.V; self.cstar=(2*N.pi)*self.a*self.b*sin_g/self.V
-          self.alphastar_r=N.arccos(N.clip((cos_b*cos_g-cos_a)/(sin_b*sin_g+eps),-1,1))
-          self.betastar_r=N.arccos(N.clip((cos_a*cos_g-cos_b)/(sin_a*sin_g+eps),-1,1))
-          self.gammastar_r=N.arccos(N.clip((cos_a*cos_b-cos_g)/(sin_a*sin_b+eps),-1,1))
+          # Guard degenerate-cell denominators conditionally: adding eps
+          # unconditionally biased every reciprocal angle by ~0.1% (e.g.
+          # hexagonal gamma* came out 60.033 deg instead of 60).
+          den_a=N.where(sin_b*sin_g<eps,eps,sin_b*sin_g)
+          den_b=N.where(sin_a*sin_g<eps,eps,sin_a*sin_g)
+          den_g=N.where(sin_a*sin_b<eps,eps,sin_a*sin_b)
+          self.alphastar_r=N.arccos(N.clip((cos_b*cos_g-cos_a)/den_a,-1,1))
+          self.betastar_r=N.arccos(N.clip((cos_a*cos_g-cos_b)/den_b,-1,1))
+          self.gammastar_r=N.arccos(N.clip((cos_a*cos_b-cos_g)/den_g,-1,1))
           self.alphastar=N.degrees(self.alphastar_r); self.betastar=N.degrees(self.betastar_r); self.gammastar=N.degrees(self.gammastar_r)
           self.Vstar=(2*N.pi)**3/self.V
      
